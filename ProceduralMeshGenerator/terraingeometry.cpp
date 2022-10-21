@@ -18,22 +18,60 @@ void TerrainGeometry::updateData()
     QByteArray vertexData(3 * stride, Qt::Initialization::Uninitialized);
     float *p = reinterpret_cast<float *>(vertexData.data());
 
-    // a triangle, front face = counter-clockwise
+//    int height = 10;
+//    int width = 10;
+
+//    for ( int row=0; row<height-1; row++ ) {
+//        if ( (row&1)==0 ) { // even rows
+//            for ( int col=0; col<width; col++ ) {
+//                *p++ = col + row * width;
+//                *p++ = col + (row+1) * width;
+//            }
+//        } else { // odd rows
+//            for ( int col=width-1; col>0; col-- ) {
+//                *p++ = col + (row+1) * width;
+//                *p++ = col - 1 + + row * width;
+//            }
+//        }
+//    }
+
+//    for (int i = 0; i < 10; ++i) {
+//        const float x = i;
+
+//        for (int j = 0; j < 10; ++j) {
+//            const float z = j;
+
+//            *p++ = x;
+//            *p++ = 0.0f;
+//            *p++ = z;
+//        }
+//    }
+
     *p++ = 0.0f; *p++ = 0.0f; *p++ = 0.0f;
+        *p++ = 5.0f; *p++ = 0.0f; *p++ = 5.0f;
+    *p++ = 0.0f; *p++ = 0.0f; *p++ = 5.0f;
+
+
+//    *p++ = 0.0f; *p++ = 0.0f; *p++ = 0.0f;
+//    *p++ = 5.0f; *p++ = 0.0f; *p++ = 5.0f;
+//    *p++ = 5.0f; *p++ = 0.0f; *p++ = 0.0f;
+
+    // a triangle, front face = counter-clockwise
+//    *p++ = 0.0f; *p++ = 0.0f; *p++ = 0.0f;
 //    if (m_hasNormals) {
 //        *p++ = m_normalXY; *p++ = m_normalXY; *p++ = 1.0f;
 //    }
 //    if (m_hasUV) {
 //        *p++ = 0.0f + m_uvAdjust; *p++ = 0.0f + m_uvAdjust;
 //    }
-    *p++ = 0.0f; *p++ = 0.0f; *p++ = 5.0f;
+//    *p++ = 0.0f; *p++ = 0.0f; *p++ = 5.0f;
 //    if (m_hasNormals) {
 //        *p++ = m_normalXY; *p++ = m_normalXY; *p++ = 1.0f;
 //    }
 //    if (m_hasUV) {
 //        *p++ = 1.0f - m_uvAdjust; *p++ = 0.0f + m_uvAdjust;
 //    }
-    *p++ = 5.0f; *p++ = 0.0f; *p++ = 5.0f;
+//    *p++ = 5.0f; *p++ = 0.0f; *p++ = 5.0f;
 //    if (m_hasNormals) {
 //        *p++ = m_normalXY; *p++ = m_normalXY; *p++ = 1.0f;
 //    }
