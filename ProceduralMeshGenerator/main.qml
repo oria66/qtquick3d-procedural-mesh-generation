@@ -35,19 +35,19 @@ ApplicationWindow {
             ambientColor: Qt.rgba(0.2, 0.2, 0.2, 1.0)
         }
 
-        Model {
-            scale: Qt.vector3d(100, 100, 100)
-            geometry: GridGeometry {
-                id: grid
-                horizontalLines: 20
-                verticalLines: 20
-            }
-            materials: [
-                DefaultMaterial {
-                    lineWidth: 1
-                }
-            ]
-        }
+//        Model {
+//            scale: Qt.vector3d(100, 100, 100)
+//            geometry: GridGeometry {
+//                id: grid
+//                horizontalLines: 20
+//                verticalLines: 20
+//            }
+//            materials: [
+//                DefaultMaterial {
+//                    lineWidth: 1
+//                }
+//            ]
+//        }
 
 //        Model {
 //            source: "#Sphere"
@@ -66,8 +66,22 @@ ApplicationWindow {
 //                uv: cbUV.checked
 //                uvAdjust: sliderUV.value
             }
+//            materials: DefaultMaterial {
+//                diffuseColor: "red"
+//            }
             materials: DefaultMaterial {
-                diffuseColor: "red"
+                diffuseMap: Texture {
+                    textureData: GradientTexture {
+//                        id: gradientTexture
+//                        startColor: "#00dbde"
+//                        endColor: "#fc00ff"
+//                        width: size256.checked ? 256 : 16
+//                        height: width
+                    }
+
+                    minFilter:  Texture.Linear
+                    magFilter: Texture.Linear
+                }
             }
         }
 

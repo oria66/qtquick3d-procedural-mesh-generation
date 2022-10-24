@@ -1,4 +1,6 @@
 #include "terraingeometry.h"
+#include "QDebug"
+#include <QtMath>
 
 TerrainGeometry::TerrainGeometry()
 {
@@ -15,8 +17,63 @@ void TerrainGeometry::updateData()
 //    if (m_hasUV)
 //        stride += 2 * sizeof(float);
 
-    QByteArray vertexData(3 * stride, Qt::Initialization::Uninitialized);
+    int index=50;
+
+    int count=index*index*6;
+
+    float step=8;
+
+    QByteArray vertexData(count * stride, Qt::Initialization::Uninitialized);
     float *p = reinterpret_cast<float *>(vertexData.data());
+
+    QByteArray Z(count * stride, Qt::Initialization::Uninitialized);
+    float *t = reinterpret_cast<float *>(vertexData.data());
+
+    int contador=0;
+    for(int row=0;row<index;row++)
+    {
+        for(int col=0;col<index;col++)
+        {
+            float v=sin(col)/100;
+            *t++=v;
+            contador++;
+        }
+    }
+    qDebug()<<"Cantidad de triangulos: "<<(index-1)*(index-1)*2;
+    qDebug()<<"Cantidad de puntos: "<<contador;
+
+    for(int row=0;row<index;row++)
+    {
+        for(int col=0;col<index;col++)
+        {
+            int ind=row*index+col;
+
+            int ind1=(row+1)*index+col;
+
+            int ind2=(row+1)*index+(col+1);
+
+            int ind3=row*index+(col+1);
+
+            *p++ = col*step; *p++ = Z[ind]; *p++ = row*step;
+
+            *p++ = col*step; *p++ = Z[ind1]; *p++ = (row+1)*step;
+
+            *p++ = (col+1)*step; *p++ = Z[ind2]; *p++ = (row+1)*step;
+
+            *p++ = col*step; *p++ = Z[ind]; *p++ = row*step;
+
+            *p++ = (col+1)*step; *p++ = Z[ind2]; *p++ = (row+1)*step;
+
+            *p++ = (col+1)*step; *p++ = Z[ind3]; *p++ = row*step;
+
+        }
+    }
+
+
+//    vertexData.clear();
+
+
+
 
 //    int height = 10;
 //    int width = 10;
@@ -47,9 +104,18 @@ void TerrainGeometry::updateData()
 //        }
 //    }
 
-    *p++ = 0.0f; *p++ = 0.0f; *p++ = 0.0f;
-        *p++ = 5.0f; *p++ = 0.0f; *p++ = 5.0f;
-    *p++ = 0.0f; *p++ = 0.0f; *p++ = 5.0f;
+//    *p++ = 0.0f; *p++ = 0.0f; *p++ = 0.0f;
+
+//    *p++ = 0.0f; *p++ = 0.0f; *p++ = 5.0f;
+
+//    *p++ = 5.0f; *p++ = 0.0f; *p++ = 5.0f;
+
+
+
+
+
+
+
 
 
 //    *p++ = 0.0f; *p++ = 0.0f; *p++ = 0.0f;
@@ -88,7 +154,7 @@ void TerrainGeometry::updateData()
                  0,
                  QQuick3DGeometry::Attribute::F32Type);
 
-//    if (m_hasNormals) {
+//    if (true) {
 //        addAttribute(QQuick3DGeometry::Attribute::NormalSemantic,
 //                     3 * sizeof(float),
 //                     QQuick3DGeometry::Attribute::F32Type);
@@ -98,5 +164,7 @@ void TerrainGeometry::updateData()
 //        addAttribute(QQuick3DGeometry::Attribute::TexCoordSemantic,
 //                     m_hasNormals ? 6 * sizeof(float) : 3 * sizeof(float),
 //                     QQuick3DGeometry::Attribute::F32Type);
-//    }
+    //    }
 }
+
+

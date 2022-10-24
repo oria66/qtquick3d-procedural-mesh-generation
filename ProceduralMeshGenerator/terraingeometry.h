@@ -14,6 +14,9 @@ public:
 
 private:
     void updateData();
+
 };
+
+
 
 #endif // TERRAINGEOMETRY_H
