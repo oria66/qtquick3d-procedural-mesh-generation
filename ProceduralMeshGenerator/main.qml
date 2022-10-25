@@ -63,30 +63,55 @@ ApplicationWindow {
             geometry: TerrainGeometry {
 //                normals: cbNorm.checked
 //                normalXY: sliderNorm.value
-//                uv: cbUV.checked
-//                uvAdjust: sliderUV.value
+                uv: true
+                uvAdjust: sliderUV.value
+
             }
 //            materials: DefaultMaterial {
 //                diffuseColor: "red"
 //            }
             materials: DefaultMaterial {
-                diffuseMap: Texture {
-                    textureData: GradientTexture {
-//                        id: gradientTexture
-//                        startColor: "#00dbde"
-//                        endColor: "#fc00ff"
-//                        width: size256.checked ? 256 : 16
-//                        height: width
-                    }
+//                diffuseMap: Texture {
+//                    id: baseColorMap
+//                    source: "mesh.png"
 
-                    minFilter:  Texture.Linear
-                    magFilter: Texture.Linear
-                }
+//                    textureData: GradientTexture {
+////                        id: gradientTexture
+////                        startColor: "#00dbde"
+////                        endColor: "#fc00ff"
+////                        width: size256.checked ? 256 : 16
+////                        height: width
+//                    }
+
+//                    minFilter:  Texture.Linear
+//                    magFilter: Texture.Linear
+//                }
             }
         }
 
         WasdController {
             controlledObject: camera
         }
+
     }
+    ColumnLayout {
+
+        RowLayout {
+            visible: true
+            RowLayout {
+                Label {
+                    text: "UV adjust"
+                }
+                Slider {
+                    id: sliderUV
+                    from: 0.0
+                    to: 1.0
+                    stepSize: 0.01
+                    value: 0.0
+                    focusPolicy: Qt.NoFocus
+                }
+            }
+        }
+    }
+
 }
