@@ -1,4 +1,5 @@
 #include "terraingeometry.h"
+#include <QColor>
 
 TerrainGeometry::TerrainGeometry()
 {
@@ -9,17 +10,23 @@ void TerrainGeometry::updateData()
 {
     clear();
 
+    int size = 4;
+
+    int columns = size + 1;
+    int rows = size + 1;
+    int step = 10;
+
     int stride = 3 * sizeof(float);
+    stride+=4*sizeof(float);
 //    if (m_hasNormals)
 //        stride += 3 * sizeof(float);
 //    if (m_hasUV)
 //        stride += 2 * sizeof(float);
 
-    QByteArray vertexData(3 * stride, Qt::Initialization::Uninitialized);
+    QByteArray vertexData(columns * rows * 7* stride, Qt::Initialization::Uninitialized);
     float *p = reinterpret_cast<float *>(vertexData.data());
 
-//    int height = 10;
-//    int width = 10;
+
 
 //    for ( int row=0; row<height-1; row++ ) {
 //        if ( (row&1)==0 ) { // even rows
@@ -47,9 +54,37 @@ void TerrainGeometry::updateData()
 //        }
 //    }
 
-    *p++ = 0.0f; *p++ = 0.0f; *p++ = 0.0f;
-        *p++ = 5.0f; *p++ = 0.0f; *p++ = 5.0f;
-    *p++ = 0.0f; *p++ = 0.0f; *p++ = 5.0f;
+    for ( int i=0; i<rows-1; i++ )
+    {
+        for ( int j=0; j<columns-1; j++ )
+        {
+            *p++ = (float)i; *p++ = 0.0f; *p++ = (float)j;
+            QColor r("orange");
+            *p++ = r.red();
+            *p++ = r.green();
+            *p++ = r.blue();
+            *p++ = r.alpha();
+
+            *p++ = (float)i; *p++ = 0.0f; *p++ = (float)(j+1);
+            QColor r2("orange");
+            *p++ = r2.red();
+            *p++ = r2.green();
+            *p++ = r2.blue();
+            *p++ = r2.alpha();
+
+            *p++ = (float)(i+1); *p++ = 0.0f; *p++ = (float)(j+1);
+            QColor r3("orange");
+            *p++ = r3.red();
+            *p++ = r3.green();
+            *p++ = r3.blue();
+            *p++ = r3.alpha();
+        }
+    }
+
+
+//    *p++ = 0.0f; *p++ = 0.0f; *p++ = 0.0f;
+//    *p++ = 0.0f; *p++ = 0.0f; *p++ = 5.0f;
+//    *p++ = 5.0f; *p++ = 0.0f; *p++ = 5.0f;
 
 
 //    *p++ = 0.0f; *p++ = 0.0f; *p++ = 0.0f;
@@ -99,4 +134,6 @@ void TerrainGeometry::updateData()
 //                     m_hasNormals ? 6 * sizeof(float) : 3 * sizeof(float),
 //                     QQuick3DGeometry::Attribute::F32Type);
 //    }
+
+    addAttribute(QQuick3DGeometry::Attribute::ColorSemantic,3* sizeof (float),QQuick3DGeometry::Attribute::F32Type);
 }

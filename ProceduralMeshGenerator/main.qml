@@ -68,6 +68,7 @@ ApplicationWindow {
             }
             materials: DefaultMaterial {
                 diffuseColor: "red"
+//                opacity: 0.1
             }
         }
 
